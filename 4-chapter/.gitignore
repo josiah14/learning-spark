@@ -1,3 +1,6 @@
+# Project specific
+src/resources/
+# -End Project Specific-
 *.class
 *.log
 build.sbt_back

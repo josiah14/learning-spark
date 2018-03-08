@@ -5,7 +5,7 @@ lazy val root = (project in file(".")).
       organization := "josiah.learningspark",
       scalaVersion := "2.11.11"
     )),
-    name := "2-chapter",
+    name := "2-chapter-word-count",
     version := "1.0.0",
     sparkVersion := "1.6.0",
     javacOptions ++= Seq("-source", "1.8", "-target", "1.8"),
