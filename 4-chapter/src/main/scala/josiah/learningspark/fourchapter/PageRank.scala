@@ -19,7 +19,9 @@ import scala.collection.JavaConversions._
 import scala.language.implicitConversions._
 
 object ChapterFour {
-
+  def main(args: Array[String]): Unit = {
+    PageRank.runPageRankApp
+  }
 }
 
 /**
@@ -93,11 +95,10 @@ object PageRank {
   val pageRankApp: SparkContextReader[RDD[(String, Double)]] =
     scLinks(objectFilePath).map(iteratePageRank(_, 10))
 
-  def runPageRankApp: Try[RDD[(String, Double)]] =
-    configureExeParams >>= pageRankApp.run
-
-
   val reportFilePath: String = "/learningspark/4-chapter/page-rank/output/ranks"
-  def reportPageRankRunResults: Unit =
-    runPageRankApp.map(_.saveAsTextFile("/")).failed.foreach(_.printStackTrace)
+  def reportPageRankRunResults(results: Try[RDD[(String, Double)]]): Unit =
+    results.map(_.saveAsTextFile("/")).failed.foreach(_.printStackTrace)
+
+  def runPageRankApp: Unit =
+    reportPageRankRunResults(configureExeParams >>= pageRankApp.run)
 }
